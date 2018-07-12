@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="2DGraphics.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationPanelTask.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AssemblyUtility.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CacheManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleShell.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Descriptor.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicMemory.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSystem.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GUITask.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="HardDisk.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InterruptHandler.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="IOAPIC.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ISR.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="JPEG.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalAPIC.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MPConfigurationTable.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiProcessor.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PIC.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PIT.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RAMDisk.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RTC.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialPort.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Synchronization.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemCall.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemCallList.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VBE.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManagerTask.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Mint64.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="2DGraphics.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplicationPanelTask.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CacheManager.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleShell.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Descriptor.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicMemory.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EnglishFont.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSystem.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITask.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="HangulFont.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="HardDisk.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InterruptHandler.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IOAPIC.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="JPEG.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="List.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Loader.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="LocalAPIC.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MPConfigruationTable.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiProcessor.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PIC.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PIT.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Queue.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="RAMDisk.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="RTC.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialPort.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Synchronization.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemCall.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="VBE.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="WallPaper.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManagerTask.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="initterm.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="SysCall.asm">
+      <Filter>헤더 파일</Filter>
+    </CustomBuild>
+    <CustomBuild Include="AssemblyUtility.asm">
+      <Filter>헤더 파일</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ISR.asm">
+      <Filter>헤더 파일</Filter>
+    </CustomBuild>
+    <CustomBuild Include="entry64.asm">
+      <Filter>소스 파일</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

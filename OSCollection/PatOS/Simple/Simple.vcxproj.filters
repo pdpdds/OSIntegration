@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Kernel">
+      <UniqueIdentifier>{017e34ee-c52e-4f02-8289-e91ac179f9d2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kernel\atomic.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\bb.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\block.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\child.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\debug.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\elf.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\err.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\fs.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\gdt.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\heap.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\ide.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\idle.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\idt.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\init.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\io.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\kbd.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\keyb.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\layout.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\libk.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\machine.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\map.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\mmu.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\pic.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\pit.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\process.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\queue.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\random.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\resource.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\semaphore.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\stdint.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\syscall.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\table.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\tss.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\u8250.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\u8250pp.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\vga.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\vmm.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\window.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\windowmanager.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cstd.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\atomic.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\block.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\child.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\debug.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\elf.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\fs.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\gdt.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\heap.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\ide.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\idle.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\idt.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\init.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\kbd.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\kernel.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\libk.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\mmu.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\pic.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\pit.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\process.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\queue.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\semaphore.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\snprintf.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\syscall.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\table.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\tss.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\u8250.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\u8250pp.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\vga.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\vmm.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\window.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\windowmanager.cc">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="memory.cc">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="machine.asm">
+      <Filter>소스 파일</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

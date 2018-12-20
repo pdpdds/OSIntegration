@@ -102,8 +102,8 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <PostBuildEvent>
-      <Command>xcopy debug\*.COD ..\debug\bell_fs /y /D
-copy debug\bell_fs.lib ..\lib /y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <ResourceCompile>
       <Culture>0x0412</Culture>
@@ -114,7 +114,7 @@ copy debug\bell_fs.lib ..\lib /y</Command>
     </Bscmake>
     <Lib>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>..\Debug\bell_fs.lib</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -19,9 +19,9 @@
 #endif
 
 #ifdef BELL_FS
-	extern void *kmalloc( DWORD dwSize );
-	extern int  kfree( void *pV );
-	extern int  kdbg_printf( char *lpFmt, ... );
+	//extern void *kmalloc( DWORD dwSize );
+	//extern int  kfree( void *pV );
+	//extern int  kdbg_printf( char *lpFmt, ... );
 #endif       
 
 #ifndef BELL_EXPORT

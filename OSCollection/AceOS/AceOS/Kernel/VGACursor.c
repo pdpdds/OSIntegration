@@ -1,6 +1,6 @@
 /*------------------------------------------------------
-               Ace Os Kernel source Code
-                         Created by Sam 
+			   Ace Os Kernel source Code
+						 Created by Sam
 	   Cursor position and size management
 ------------------------------------------------------ */
 
@@ -15,13 +15,14 @@
 #define VGA_CRT_H_END_ADDRESS 0x0D
 #define VGA_CRT_CURSOR_H_LOCATION 0x0E
 #define VGA_CRT_CURSOR_L_LOCATION 0x0F
-void MoveCursor(BYTE X,BYTE Y)
-	{UINT16 Offset=(X*80)+(Y-1);
-	OutPortByte(VGA_CRT_ADDRESS,VGA_CRT_CURSOR_H_LOCATION);
-	OutPortByte(VGA_CRT_DATA,Offset>>8);
-	OutPortByte(VGA_CRT_ADDRESS,VGA_CRT_CURSOR_L_LOCATION);
-	OutPortByte(VGA_CRT_DATA,(Offset<<8)>>8);
-	}
+void MoveCursor(BYTE X, BYTE Y)
+{
+	UINT16 Offset = (X * 80) + (Y - 1);
+	OutPortByte(VGA_CRT_ADDRESS, VGA_CRT_CURSOR_H_LOCATION);
+	OutPortByte(VGA_CRT_DATA, Offset >> 8);
+	OutPortByte(VGA_CRT_ADDRESS, VGA_CRT_CURSOR_L_LOCATION);
+	OutPortByte(VGA_CRT_DATA, (Offset << 8) >> 8);
+}
 /* Sets the Cursor Type
 	0 to 15 is possible value to pass
 	Returns - none.
@@ -30,9 +31,10 @@ void MoveCursor(BYTE X,BYTE Y)
 		  No Cursor - (25,25) - beyond the cursor limit so it is invisible
 */
 void SetCursorType(BYTE Bottom, BYTE Top)
-	{OutPortByte(VGA_CRT_ADDRESS,VGA_CRT_CURSOR_START);
-	OutPortByte(VGA_CRT_DATA,Top);
-	OutPortByte(VGA_CRT_ADDRESS,VGA_CRT_CURSOR_END);
-	OutPortByte(VGA_CRT_DATA,Bottom);
-	}
+{
+	OutPortByte(VGA_CRT_ADDRESS, VGA_CRT_CURSOR_START);
+	OutPortByte(VGA_CRT_DATA, Top);
+	OutPortByte(VGA_CRT_ADDRESS, VGA_CRT_CURSOR_END);
+	OutPortByte(VGA_CRT_DATA, Bottom);
+}
 

@@ -1,66 +1,9 @@
 		.386P
 		.MODEL FLAT
 		
-		PUBLIC	_EntryPoint16, _m_GdtTable, _m_GdtrDesc
-		EXTERN	_chobits_init:near
-
-;===============================================================================
-; DECLARE MACROs
-;===============================================================================
-LGDT16	MACRO	addr				; load from ds segment area
-		db	3eh
-		db	67h
-		db	0fh
-		db	01h
-		db	15h
-		dd	addr
-ENDM
-
-FJMP16	MACRO	selector, offset
-		db	66h
-		db	0eah
-		dd	offset
-		dw	selector
-ENDM
-
+		PUBLIC	_m_GdtTable, _m_GdtrDesc
 
 .CODE
-;===============================================================================
-; EntryPoint called by bootsect.
-;===============================================================================
-_EntryPoint16		PROC	NEAR
-
-		LGDT16	_m_GdtrDesc-20000h
-
-		mov		eax, cr0
-		or		ax, 1
-		mov		cr0, eax
-		jmp		$+2
-
-		FJMP16	08h, EntryPoint32
-		
-_EntryPoint16		ENDP
-
-;===============================================================================
-; 32bit routine
-;===============================================================================
-EntryPoint32	PROC		NEAR
-
-		mov		ax, 10h
- 		mov		ds, ax
- 		mov		es, ax
- 		mov		fs, ax
- 		mov		gs, ax
- 		mov		ss, ax
- 		mov		esp, 1ffffh		; top of stack
-
-		call	_chobits_init
-
-infinate:
-		hlt
-		jmp	infinate
-		
-EntryPoint32	ENDP
 
 
 .DATA

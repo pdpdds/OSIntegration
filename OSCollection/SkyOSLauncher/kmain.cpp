@@ -77,7 +77,7 @@ void kmain(unsigned long magic, unsigned long addr)
 			//char* pName = strtok(mb_info->cmdline, " ");
 			//pName = strtok(NULL, " ");
 
-			result = Boot32BitMode(magic, mb_info, "ChobitsOS.exe");
+			result = Boot32BitMode(magic, mb_info, "/ChobitsOS.exe");
 		}
 		else
 		{

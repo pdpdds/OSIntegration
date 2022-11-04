@@ -58,6 +58,7 @@ extern SEGMENT_DESC		m_GdtTable[NUMBERS_OF_GDT_ENTRIES];
  **********************************************************************************************************/
 BOOL HalInitializeHal(VOID)
 {
+
 	if(!HalpInitializeProcessor()) {
 		DbgPrint("HalpInitializeProcessor() returned an error.\r\n");
 		return FALSE;

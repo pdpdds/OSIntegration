@@ -36,8 +36,15 @@ extern BOOL HshInitializeShell(VOID);			/* hshell.c */
  * THE ENTRY POINT OF CHOBITS OPERATING
  * desc : This function will be excuted by 'jmp' instruction, programmed in "entry.asm".
  */
-int chobits_init(void)
+
+//20221104
+#include"sys_desc.h"
+extern GDTR_DESC		m_GdtrDesc;
+int chobits_init(unsigned long magic, unsigned long addr, unsigned int imageBase)
 {
+	
+	_asm lgdt[m_GdtrDesc]
+
 	/* Initialize device drivers - ALWAYS THIS DEVICE DRIVER MUST BE EXCUTED FIRSTLY. */
 	if(!CrtInitializeDriver())		{ halt(NULL); }
 

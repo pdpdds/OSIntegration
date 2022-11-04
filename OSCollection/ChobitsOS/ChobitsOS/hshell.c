@@ -98,10 +98,10 @@ static DWORD HshpMainThread(PVOID StartContext)
 	static int cmd_next_pos=0;
 
 	/* initialized file system */
-	if(!FsInitializeModule()) {
-		DbgPrint("FsInitializeModule() returned an error.\r\n");
-		return 0;
-	}
+	//if(!FsInitializeModule()) {
+	//	DbgPrint("FsInitializeModule() returned an error.\r\n");
+	//	return 0;
+	//}
 
 	HshpPrintPrompt();
 	while(1) {

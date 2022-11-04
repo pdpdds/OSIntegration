@@ -1,1 +1,0 @@
-nmake bell_fs.mak

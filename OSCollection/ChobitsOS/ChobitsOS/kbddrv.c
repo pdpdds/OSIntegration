@@ -159,9 +159,9 @@ VOID Kbd_IRQ_Handler(VOID)
 		return;
 	}
 
-	/* Insert key data into 'RAW Q', and then return to 'IRQ 1' handler without delay for increasing OS performance. ^^ */
+	/* Insert a key data into the raw queue, then return to the 'IRQ 1' handler right away. */
 	if(!KbdpPushRawKeyData(&(m_KbdData.raw_keydata_q), keyCode)) {
-		/* if the buffer hasn't enough space to save a new key code, DO SOMETHING you want */
+		/* if the buffer hasn't enough space to save a new key code, DO SOMETHING you want(beep sound). */
 		/* DbgPrint("#KBD# No enough space!! Dont hit again, you silly! \r\n"); */
 		return;
 	}
@@ -266,7 +266,7 @@ static DWORD KbdpTranslatorThread(PVOID StartContext)
 
 	while(1) {
 		if(!KbdpPopRawKeyData(&(m_KbdData.raw_keydata_q), &raw_key)) {
-			HalTaskSwitch(); /* if there is no remained job to do, then call task-swithing task in order to run other taks. */
+			HalTaskSwitch(); /* if there is no remained job to do, then call the task-swithing task to run other taks. */
 			continue;
 		}
 

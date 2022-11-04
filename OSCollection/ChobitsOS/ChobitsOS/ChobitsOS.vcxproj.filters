@@ -60,6 +60,12 @@
     <ClCompile Include="cstd.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="directy.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="vgadrv.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="6845crt.h">
@@ -107,10 +113,25 @@
     <ClInclude Include="vsprintf.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="directy.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="fonts.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="vgadrv.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="video_def.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="hal_asm.asm">
+    <MASM Include="hal_asm.asm">
       <Filter>헤더 파일</Filter>
-    </CustomBuild>
+    </MASM>
+    <MASM Include="entry.asm">
+      <Filter>소스 파일</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

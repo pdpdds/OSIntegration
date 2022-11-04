@@ -55,6 +55,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -88,7 +89,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>__DEBUG__;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__DEBUG__;_CONSOLE;</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <OmitFramePointers>true</OmitFramePointers>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
@@ -98,10 +99,10 @@
       <StructMemberAlignment>1Byte</StructMemberAlignment>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <AdditionalOptions>/Oy %(AdditionalOptions)</AdditionalOptions>
       <UndefineAllPreprocessorDefinitions>true</UndefineAllPreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <AdditionalIncludeDirectories>./</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,16 +110,15 @@
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <GenerateMapFile>true</GenerateMapFile>
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
-      <AdditionalOptions>/safeseh:no
-/ALIGN:1024
- /SUBSYSTEM:CONSOLE
-/NODEFAULTLIB:LIBC %(AdditionalOptions)</AdditionalOptions>
       <EntryPointSymbol>chobits_init</EntryPointSymbol>
       <BaseAddress>0x00800000</BaseAddress>
-      <AdditionalDependencies />
+      <AdditionalDependencies>
+      </AdditionalDependencies>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SectionAlignment>1024</SectionAlignment>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -196,6 +196,7 @@
     <ClCompile Include="6845crt.c" />
     <ClCompile Include="chobits.c" />
     <ClCompile Include="cstd.cpp" />
+    <ClCompile Include="directy.c" />
     <ClCompile Include="fatfs.c" />
     <ClCompile Include="fdddrv.c" />
     <ClCompile Include="hal.c" />
@@ -206,6 +207,7 @@
     <ClCompile Include="process.c" />
     <ClCompile Include="string.c" />
     <ClCompile Include="syscall.c" />
+    <ClCompile Include="vgadrv.c" />
     <ClCompile Include="vsprintf.c" />
   </ItemGroup>
   <ItemGroup>
@@ -213,8 +215,10 @@
     <ClInclude Include="chobits.h" />
     <ClInclude Include="ctype.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="directy.h" />
     <ClInclude Include="fatfs.h" />
     <ClInclude Include="fdddrv.h" />
+    <ClInclude Include="fonts.h" />
     <ClInclude Include="hshell.h" />
     <ClInclude Include="kbddrv.h" />
     <ClInclude Include="key_def.h" />
@@ -223,16 +227,22 @@
     <ClInclude Include="syscall_type.h" />
     <ClInclude Include="sys_desc.h" />
     <ClInclude Include="types.h" />
+    <ClInclude Include="vgadrv.h" />
+    <ClInclude Include="video_def.h" />
     <ClInclude Include="vsprintf.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="hal_asm.asm">
+    <MASM Include="entry.asm" />
+    <MASM Include="hal_asm.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">nasmw -f win32 hal_asm.asm</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">hal_asm.obj</Outputs>
-    </CustomBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+    </MASM>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

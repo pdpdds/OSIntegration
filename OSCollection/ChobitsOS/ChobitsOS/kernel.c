@@ -31,21 +31,23 @@ extern BOOL SysInitializeSyscall(VOID); /* syscall.c */
  **********************************************************************************************************/
 BOOL KrnInitializeKernel(VOID)
 {
-	if(!HalInitializeHal()) {
+	if(!HalInitializeHal()) {		/* first of all */
 		DbgPrint("HalInitializeHal() returned an error.\r\n");
 		return FALSE;
 	}
 
-	if(!MmkInitializeMemoryManager()) {		/* first of all */
+	/*
+	 * other parts of the kernel use dynamic memory alloc/dealloc functions, so we must initialize
+	 * memory manager firstly than any others. (except HAL)
+	 */
+	if(!MmkInitializeMemoryManager()) {
 		DbgPrint("MmkInitializeMemoryManager() returned an error.\r\n");
 		return FALSE;
 	}
-
 	if(!PskInitializeProcessManager()) {
 		DbgPrint("PskInitializeProcessManager() returned an error.\r\n");
 		return FALSE;
 	}
-
 	if(!SysInitializeSyscall()) {
 		DbgPrint("SysInitializeSyscall() returned an error.\r\n");
 		return FALSE;

@@ -12,7 +12,7 @@
 /*
  * DEFINITIONS
  */
-#define MEMORY_POOL_START_ADDRESS		0x01000000
+#define MEMORY_POOL_START_ADDRESS		0x00200000
 
 #define MEM_BLK_SIZE					512			/* each block occupies 512 bytes */
 
@@ -66,7 +66,6 @@ BOOL MmkInitializeMemoryManager(VOID)
 		DbgPrint("MmpCheckMemorySize() returned an error.\r\n");
 		return FALSE;
 	}
-
 	if(!MmpCreateMemPoolBlk()) {
 		DbgPrint("MmpCreateMemPoolBlk() returned an error.\r\n");
 		return FALSE;
@@ -169,7 +168,7 @@ static BOOL MmpCheckMemorySize(void)
 	DWORD *pAddr = (DWORD *)0x00000000, tmp;
 
 	while(1) {
-		pAddr += (4*1024*1024); /* 4 mega bytes */
+		pAddr += (1024*1024); /* 4 mega bytes */
 		tmp = *pAddr;
 		*pAddr = 0x11223344;
 		if(*pAddr != 0x11223344)
@@ -190,7 +189,7 @@ static BOOL MmpCreateMemPoolBlk(void)
 	DWORD dwUsableMemSize, dwBlksOfUsableMem, dwBlksOfAllocatableMem, dwBlksOfDescs, i;
 	int *pPoolEntry;
 	MEM_BLK_DESC *pPrev, *pCur;
-	
+
 ENTER_CRITICAL_SECTION();
 	dwUsableMemSize = m_MemSize - MEMORY_POOL_START_ADDRESS;
 EXIT_CRITICAL_SECTION();

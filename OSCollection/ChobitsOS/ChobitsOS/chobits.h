@@ -8,6 +8,7 @@
 /* common */
 #include "types.h"
 #include "debug.h"
+#include "video_def.h"
 
 /* libraries */
 #include "string.h"
@@ -17,6 +18,10 @@
 #include "6845crt.h"
 #include "kbddrv.h"
 #include "fdddrv.h"
+#include "vgadrv.h"
+
+/* amazing graphic library */
+#include "directy.h"
 
 /* shell */
 #include "hshell.h"

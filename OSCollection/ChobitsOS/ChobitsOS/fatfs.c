@@ -231,6 +231,13 @@ KERNELAPI DWORD  FsReadFile(HANDLE FileHandle, BYTE *pData, DWORD NumberOfBytesT
 	return bytes_read;
 }
 
+KERNELAPI BYTE   FsReadChar(HANDLE FileHandle)
+{
+	BYTE ch;
+	FsReadFile(FileHandle, &ch, 1);
+	return ch;
+}
+
 
 /**********************************************************************************************************
  *                                           INTERNEL FUNTIONS                                            *

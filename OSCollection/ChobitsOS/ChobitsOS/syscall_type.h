@@ -25,6 +25,14 @@ typedef enum _SYSCALL_TYPES {
 	/* keyboard */
 	SYSCALL_HAS_KEY,
 	SYSCALL_GET_KEYDATA,
+	/* direct y */
+	SYSCALL_SET_VIDEO_MODE,
+	SYSCALL_GET_CURRENT_VIDEO_MODE,
+	SYSCALL_LOAD_BITMAP,
+	SYSCALL_GET_PALETTE_HANDLE,
+	SYSCALL_GET_BITMAP_INFO,
+	SYSCALL_BITBLT,
+	SYSCALL_CLOSE_BITMAP_HANDLE,
 } SYSCALL_TYPES;
 
 typedef struct _SYSCALL_MSG {
@@ -39,6 +47,40 @@ typedef struct _SYSCALL_MSG {
 		struct {
 			DWORD		milli_sec;
 		} DELAY;
+
+		struct {
+			DY_VIDEO_MODE	mode;
+			HANDLE			palette;
+		} SET_VIDEO_MODE;
+
+		struct {
+			char			*pt_filename;
+		} LOAD_BITMAP;
+
+		struct {
+			HANDLE			bitmap;
+		} GET_PALETTE_HANDLE;
+
+		struct {
+			HANDLE			bitmap;
+			BITMAP_INFO		*pt_bitmap_info;
+		} GET_BITMAP_INFO;
+
+		struct {
+			HANDLE			bitmap;
+			WORD			screen_x;
+			WORD			screen_y;
+			DWORD			start_img_x;
+			DWORD			start_img_y;
+			DWORD			cx_to_be_displayed;
+			DWORD			cy_to_be_displayed;
+			RGB_COLOR		*pt_mask_color;
+		} BITBLT;
+
+		struct {
+			HANDLE			bitmap;
+		} CLOSE_BITMAP_HANDLE;
+
 	} parameters;
 } SYSCALL_MSG, *PSYSCALL_MSG;
 

@@ -11,7 +11,8 @@
  *                     # MASM Assembler (MS)
  *
  * Comments : All source files are opend to public completely without any loyalty or license.
- *            I just want to share informations and techincs. ^^
+ *            I just want to share the information of computer technology. that's all! ^^
+ *
  *
  */
 
@@ -32,32 +33,23 @@ extern BOOL FddInitializeDriver(VOID);			/* fdddrv.c */
 extern BOOL HshInitializeShell(VOID);			/* hshell.c */
 
 /*
- * CHOBITS OPERATING SYSTEM ENTRY POINT
- * desc : This function may be called within PROTECTED MODE operation by the entry point
- *        programmed in the assembly source file, "entry.asm".
+ * THE ENTRY POINT OF CHOBITS OPERATING
+ * desc : This function will be excuted by 'jmp' instruction, programmed in "entry.asm".
  */
-
-extern void _cdecl InitializeConstructors();
-
-
-void chobits_init(unsigned long magic, unsigned long addr, unsigned int imageBase)
+int chobits_init(void)
 {
-	InitializeConstructors();
-
-	/* Initialize device drivers - ALWAYS THIS DEVICE DRIVER MUST BE EXCUTED FIRSTLY THAN OTHERS. */
+	/* Initialize device drivers - ALWAYS THIS DEVICE DRIVER MUST BE EXCUTED FIRSTLY. */
 	if(!CrtInitializeDriver())		{ halt(NULL); }
-	
+
 	/* Initialize kernel */
 	if(!KrnInitializeKernel())		{ halt("KrnInitializeKernel() returned an error.\r\n"); }
-	
+
 	/* PUT DOWN OTHER DEVICE DRIVERS' INITIALIZE ROUTINE!! */
 	/* bla bla bla */
 	if(!KbdInitializeDriver())		{ halt("KbdInitializeDriver() returned an error.\r\n"); }
 	if(!FddInitializeDriver())		{ halt("FddInitializeDriver() returned an error.\r\n"); }
 
-	
-
-	/* FINALLY, LOADS THE MAIN SHELL, HIDEKI..! */
+	/* FINALLY, LOAD THE MAIN SHELL, HIDEKI..! */
 	if(!HshInitializeShell())		{ halt("HshInitializeShell() returned an error.\r\n"); }
 
 	/* make the first task-switching */
@@ -74,9 +66,9 @@ void chobits_init(unsigned long magic, unsigned long addr, unsigned int imageBas
 		iretd
 	}
 
-	/* this code must not be excuted! it will crash the whole system. */
+	/* pray to God that this function will not be excuted permanently. save us! */
 	halt("Chobits OS booting ERROR!!\r\n");
-	return;
+	return 0;
 }
 
 static void halt(char *pMsg)

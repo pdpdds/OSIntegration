@@ -24,7 +24,7 @@ typedef struct _THREAD_CONTROL_BLOCK {
 	struct _THREAD_CONTROL_BLOCK		*pt_next_thread;			/* next thread point */
 
 	PKSTART_ROUTINE						start_routine;				/* program entry point */
-	PVOID								start_context;				/* context to be passed into the entry routine */
+	PVOID								start_context;				/* context to be passed to the entry routine */
 	int									*pt_stack_base_address;		/* stack base address */
 	DWORD								stack_size;					/* stack size */
 	TSS_32								thread_tss32;				/* TSS32 BLOCK */
@@ -85,10 +85,10 @@ static BOOL PspPushCuttingItem(CUTTING_LIST *pCuttingList, HANDLE Item);
 static void PspSetupTaskSWEnv(void);
 
 /*
- * INTERNEL PROCESSs
+ * INTERNEL PROCESSes
  */
 static void PspTaskEntryPoint(void);
-static BOOL PspCreateSystemProcess(void); /* threads in system process will not excuted by scheduler */
+static BOOL PspCreateSystemProcess(void); /* threads belonged to this system process will not be excuted by scheduler */
 
 /*
  * INTERNEL THREADs
@@ -113,7 +113,7 @@ static DWORD m_TickCount;
  **********************************************************************************************************/
 BOOL PskInitializeProcessManager(VOID)
 {
-	/* initialize global variable */
+	/* initialize global variables */
 	m_ProcMgrBlk.process_count		= 0;
 	m_ProcMgrBlk.next_process_id	= 0;
 	m_ProcMgrBlk.pt_current_thread	= 0;
@@ -129,7 +129,6 @@ BOOL PskInitializeProcessManager(VOID)
 
 	m_bShowTSWatchdogClock			= TRUE;
 	m_TickCount						= 0;
-
 
 	if(!PspCreateSystemProcess()) {
 		DbgPrint("PspCreateSystemProcess() returned an error.\r\n");
@@ -253,7 +252,7 @@ KERNELAPI BOOL PsCreateIntThread(OUT PHANDLE ThreadHandle, IN HANDLE ProcessHand
 
 KERNELAPI BOOL PsCreateUserThread(OUT PHANDLE ThreadHandle, IN HANDLE ProcessHandle, IN PVOID StartContext)
 {
-#define USER_APP_ENTRY_POINT			0x00101000
+#define USER_APP_ENTRY_POINT			0x00100400
 #define USER_APP_STACK_PTR				0x001f0000
 #define USER_APP_STACK_SIZE				(1024*64)
 	PTHREAD_CONTROL_BLOCK pThread;
@@ -343,7 +342,7 @@ static BOOL PspPopCuttingItem(CUTTING_LIST *pCuttingList, HANDLE *pItem)
 
 ENTER_CRITICAL_SECTION();
 	{
-		/* check up count */
+		/* check count */
 		if(pCuttingList->count == 0) {
 			bResult = FALSE;
 			goto $exit;
@@ -477,7 +476,7 @@ static void PspSetupTaskSWEnv(void)
 
 	/* get threads */
 	current_thread = PsGetCurrentThread();
-	next_thread = PspFindNextThreadScheduled();	/* at this time, current thread is changed with new thing */
+	next_thread = PspFindNextThreadScheduled();	/* at this time, the current thread handle is changed with a new one */
 
 	if(PsGetThreadPtr(current_thread)->thread_status == THREAD_STATUS_TERMINATED) {
 		/* auto delete? */
@@ -515,19 +514,20 @@ static DWORD PspProcessCutterThread(PVOID StartContext)
 	PTHREAD_CONTROL_BLOCK  *pt_cur_thread;
 
 	while(1) {
-		/* check process cutting list */
+		/* check the process cutting list */
 		if(!PspPopCuttingItem(&m_ProcessCuttingList, &ProcessHandle)) {
 			HalTaskSwitch();
 			continue;
 		}
 
 ENTER_CRITICAL_SECTION();
-		/* if requsted process handle is same with system process handle, then do nothing!! protect system process */
+		/* if a requsted process handle is same with the system process handle which has a thread running now,
+		 * then do nothing!! protect the whole system. */
 		if(ProcessHandle == PsGetThreadPtr(PsGetCurrentThread())->parent_process_handle) {
 			goto $exit;
 		}
 
-		/* find requested process position in the process list */
+		/* find a requested process position in the process list */
 		pt_prev_process = pt_cur_process = &(m_ProcMgrBlk.pt_head_process);
 		while(*pt_cur_process != PsGetProcessPtr(ProcessHandle)) {
 			/* there is no requested process in the list */
@@ -538,11 +538,11 @@ ENTER_CRITICAL_SECTION();
 			pt_cur_process = &((*pt_cur_process)->pt_next_process);
 		}
 
-		/* change next process pointer */
+		/* change the next process pointer */
 		(*pt_prev_process)->pt_next_process = (*pt_cur_process)->pt_next_process;
 		m_ProcMgrBlk.process_count--;
 
-		/* dealloc all threads belonged to the requested process */
+		/* dealloc all threads belonged to a requested process */
 		pt_cur_thread = &(PsGetProcessPtr(ProcessHandle)->pt_head_thread);
 		while(*pt_cur_thread != NULL) {
 			MmFreeNonCachedMemory((PVOID)((*pt_cur_thread)->pt_stack_base_address));
@@ -550,7 +550,7 @@ ENTER_CRITICAL_SECTION();
 			pt_cur_thread = &((*pt_cur_thread)->pt_next_thread);
 		}
 
-		/* dealloc the requested process memory */
+		/* dealloc a requested process memory */
 		MmFreeNonCachedMemory((PVOID)ProcessHandle);
 
 $exit:
@@ -566,7 +566,7 @@ static DWORD PspThreadCutterThread(PVOID StartContext)
 	PTHREAD_CONTROL_BLOCK *pt_prev_thread, *pt_cur_thread;
 
 	while(1) {
-		/* check thread cutting list */
+		/* check the thread cutting list */
 		if(!PspPopCuttingItem(&m_ThreadCuttingList, &ThreadHandle)) {
 			HalTaskSwitch();
 			continue;
@@ -575,7 +575,8 @@ static DWORD PspThreadCutterThread(PVOID StartContext)
 ENTER_CRITICAL_SECTION();
 		ProcessHandle = PsGetThreadPtr(ThreadHandle)->parent_process_handle;
 
-		/* if requsted thread's parent process handle is same with system process handle, then do nothing!! protect system thread */
+		/* if a requsted thread's parent process handle is same with the system process handle which has a running thread,
+		 * then do nothing!! protect the whole system. */
 		if(ProcessHandle == PsGetThreadPtr(PsGetCurrentThread())->parent_process_handle) {
 			goto $exit;
 		}
@@ -588,7 +589,7 @@ ENTER_CRITICAL_SECTION();
 		else if(PsGetProcessPtr(ProcessHandle)->thread_count == 1) {
 			PsGetProcessPtr(ProcessHandle)->pt_head_thread = NULL;
 		}
-		/* more than 2 threads exist */
+		/* more than 2 threads are exist */
 		else {
 			pt_prev_thread = pt_cur_thread = &(PsGetProcessPtr(ProcessHandle)->pt_head_thread);
 			while(*pt_cur_thread != PsGetThreadPtr(ThreadHandle)) {
@@ -599,12 +600,13 @@ ENTER_CRITICAL_SECTION();
 				pt_prev_thread = pt_cur_thread;
 				pt_cur_thread = &((*pt_cur_thread)->pt_next_thread);
 			}
-			/* change next thread pointer */
+			/* change the next thread pointer */
 			(*pt_prev_thread)->pt_next_thread = (*pt_cur_thread)->pt_next_thread;
 		}
 		PsGetProcessPtr(ProcessHandle)->thread_count--;
 
-		/* except user mode program's stack */
+		/* if a requested thread is a user-mode thread, do not run 'free memory' function.
+		 * these threads' stack area is not oriented(and created) by this function. */
 		if(PsGetThreadPtr(ThreadHandle)->pt_stack_base_address >= (int *)0x00200000)
 			MmFreeNonCachedMemory((PVOID)(PsGetThreadPtr(ThreadHandle)->pt_stack_base_address)); /* dealloc stack */
 		MmFreeNonCachedMemory((PVOID)(PsGetThreadPtr(ThreadHandle))); /* dealloc thread */
@@ -624,7 +626,7 @@ static DWORD PspSoftTaskSW(PVOID StartContext)
 	while(1) {
 		_asm cli
 
-		/* draw alalog watch-dog clock */
+		/* draw the watch-dog clock */
 		if(cnt++ >= TIMEOUT_PER_SECOND) {
 			if(++pos > 7) pos = 0;
 			cnt = 0;
@@ -645,7 +647,7 @@ static DWORD Psp_IRQ_SystemTimer(PVOID StartContext)
 	while(1) {
 		_asm cli
 
-		m_TickCount++; /* increase tick count */
+		m_TickCount++; /* increase the tick count */
 		PspSetupTaskSWEnv(); /* task-switching */
         WRITE_PORT_UCHAR((PUCHAR)0x20, 0x20); /* send EOI */
 
@@ -664,13 +666,11 @@ static BOOL PspCreateSystemProcess(void)
 	if(!PsCreateProcess(&process_handle)) 
 		return FALSE;
 
-
 	/* create init_thread. */
 	if(!PsCreateThread(&init_thread_handle, process_handle, NULL, NULL, DEFAULT_STACK_SIZE, FALSE)) 
 		return FALSE;
 	HalSetupTaskLink(&PsGetThreadPtr(init_thread_handle)->thread_tss32, TASK_SW_SEG);
 	HalWriteTssIntoGdt(&PsGetThreadPtr(init_thread_handle)->thread_tss32, sizeof(TSS_32), INIT_TSS_SEG, FALSE);
-
 	_asm {
 		push	ax
 		mov		ax, INIT_TSS_SEG
@@ -694,7 +694,7 @@ static BOOL PspCreateSystemProcess(void)
 	PsSetThreadStatus(idle_thread_handle, THREAD_STATUS_RUNNING);
 
 	HalWriteTssIntoGdt(&PsGetThreadPtr(idle_thread_handle)->thread_tss32, sizeof(TSS_32), TASK_SW_SEG, 
-		TRUE); /* LAST PARAMETER SHOULD BE SET WITH 'TRUE'. IMPORTANT!! */
+		TRUE); /* LAST PARAMETER MUST BE SET WITH 'TRUE'. IMPORTANT!! */
 	m_ProcMgrBlk.pt_current_thread = idle_thread_handle; /* IMPORTANT!! */
 
 	/* process cutter & thread cutter */

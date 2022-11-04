@@ -14,7 +14,7 @@
 #ifdef __DEBUG__
 #define DbgPrint			CrtPrintf
 #else
-int DbgPrint(const char *fmt, ...);
+int DbgPrint(const char *fmt, ...) { return -1; }
 #endif
 
 

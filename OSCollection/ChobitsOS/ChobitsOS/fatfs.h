@@ -41,6 +41,7 @@ KERNELAPI VOID FsGetFileList(FS_FILE_INFO_CALLBACK CallBack, PVOID Context);
 KERNELAPI HANDLE FsOpenFile(BYTE *pFilename, DWORD Attribute);
 KERNELAPI BOOL   FsCloseFile(HANDLE FileHandle);
 KERNELAPI DWORD  FsReadFile(HANDLE FileHandle, BYTE *pData, DWORD NumberOfBytesToRead);
+KERNELAPI BYTE   FsReadChar(HANDLE FileHandle);
 
 
 #endif /* #ifndef _FATFS_HEADER_FILE_ */

@@ -35,7 +35,7 @@ BOOL SysInitializeSyscall(VOID)
 		return FALSE;
 	}
 
-	/* setup stack for syscall */
+	/* allocate a memory block for the stack of syscall. */
 	m_pSyscallStack = MmAllocateNonCachedMemory(DEFAULT_STACK_SIZE);
 	if(m_pSyscallStack == NULL) return FALSE;
 
@@ -110,10 +110,7 @@ _declspec(naked)  static VOID Sysp_SERVICE_CALL_MANAGER(void)
 
 		/* keyboard api */
 		case SYSCALL_HAS_KEY:
-			if(KbdHasKey())
-				result = 1;
-			else
-				result = 0;
+			result = (int)KbdHasKey();
 			break;
 		case SYSCALL_GET_KEYDATA:
 			if(!KbdGetKey(&key_data)) {
@@ -123,6 +120,39 @@ _declspec(naked)  static VOID Sysp_SERVICE_CALL_MANAGER(void)
 			result = (int)key_data.type;
 			result <<= 8;
 			result += (int)key_data.key;
+			break;
+
+		/* direct y api */
+		case SYSCALL_SET_VIDEO_MODE:
+			result = (int)DySetVideoMode(call_msg->parameters.SET_VIDEO_MODE.mode, 
+				call_msg->parameters.SET_VIDEO_MODE.palette);
+			break;
+		case SYSCALL_GET_CURRENT_VIDEO_MODE:
+			result = (int)DyGetCurrentVideoMode();
+			break;
+		case SYSCALL_LOAD_BITMAP:
+			result = (int)DyLoadBitmap(call_msg->parameters.LOAD_BITMAP.pt_filename);
+			break;
+		case SYSCALL_GET_PALETTE_HANDLE:
+			result = (int)DyGetPaletteHandle(call_msg->parameters.GET_PALETTE_HANDLE.bitmap);
+			break;
+		case SYSCALL_GET_BITMAP_INFO:
+			result = (int)DyGetBitmapInfo(call_msg->parameters.GET_BITMAP_INFO.bitmap,
+				call_msg->parameters.GET_BITMAP_INFO.pt_bitmap_info);
+			break;
+		case SYSCALL_BITBLT:
+			result = (int)DyBitBlt(
+				call_msg->parameters.BITBLT.bitmap,
+				call_msg->parameters.BITBLT.screen_x,
+				call_msg->parameters.BITBLT.screen_y,
+				call_msg->parameters.BITBLT.start_img_x,
+				call_msg->parameters.BITBLT.start_img_y,
+				call_msg->parameters.BITBLT.cx_to_be_displayed,
+				call_msg->parameters.BITBLT.cy_to_be_displayed,
+				call_msg->parameters.BITBLT.pt_mask_color);
+			break;
+		case SYSCALL_CLOSE_BITMAP_HANDLE:
+			DyCloseBitmapHandle(call_msg->parameters.CLOSE_BITMAP_HANDLE.bitmap);
 			break;
 
 		default:

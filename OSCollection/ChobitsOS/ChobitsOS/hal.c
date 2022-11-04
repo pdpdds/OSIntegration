@@ -57,9 +57,7 @@ extern SEGMENT_DESC		m_GdtTable[NUMBERS_OF_GDT_ENTRIES];
  *                                            GLOBAL FUNTIONS                                             *
  **********************************************************************************************************/
 BOOL HalInitializeHal(VOID)
-{	
-	_asm lgdt[m_GdtrDesc]
-
+{
 	if(!HalpInitializeProcessor()) {
 		DbgPrint("HalpInitializeProcessor() returned an error.\r\n");
 		return FALSE;
@@ -202,7 +200,6 @@ static BOOL HalpInitializeProcessor(void)
 		DbgPrint("HalpInitSysTimer() returned an error.\r\n");
 		return FALSE;
 	}
-
 	if(!HalpStartIntService()) {
 		DbgPrint("HalpStartIntService() returned an error.\r\n");
 		return FALSE;
@@ -866,7 +863,7 @@ static INT_HANDLER		m_IntHandlers[] = {
 	{ 0x05, (int)Halp_ECT_BOUNDS,				IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 },
 	{ 0x06, (int)Halp_ECT_InvaildOpcode,		IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 },
 	{ 0x07, (int)Halp_ECT_DeviceNotAvailable,	IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 },
-	{ 0x08, (int)Halp_ECT_DoubleFault,			IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 }, /* it should be redirected to TASK DESC by TASK-gate. why? it's top secret. hehe. */
+	{ 0x08, (int)Halp_ECT_DoubleFault,			IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 }, /* the best selection is that you use 'task gate' instead of 'int gate'. */
 	{ 0x09, (int)Halp_ECT_CoprocessorOverrun,	IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 },
 	{ 0x0a, (int)Halp_ECT_InvalidTSS,			IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 },
 	{ 0x0b, (int)Halp_ECT_SegmentNotPresent,	IDTC_PRESENT | IDTC_32BIT | IDTC_INTGATE | IDTC_DPL0 },

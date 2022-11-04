@@ -25,6 +25,12 @@ static WORD m_CursorXPos, m_CursorYPos;
 BOOL CrtInitializeDriver(VOID);
 
 /*
+ * EXTERNEL FUNCTIONS
+ */
+extern BOOL VgaInitializeDriver(VOID);			/* vgadrv.c */
+extern BOOL DyInitializeLibrary(VOID);			/* directy.c */
+
+/*
  * DECLARES INTERNEL FUNCTIONS USED BY 6845 CRT DRIVER
  */
 static void CrtpSetCursorPos(WORD x, WORD y);
@@ -43,15 +49,22 @@ static int CrtpPrintfFmt(UCHAR Attr, WORD x, WORD y, const char *fmt, va_list ar
  **********************************************************************************************************/
 BOOL CrtInitializeDriver(VOID)
 {
+	/* initialize the vga driver and the graphic library(direct y) */
+	if(!VgaInitializeDriver()) {
+		DbgPrint("VgaInitializeDriver() returned an error.\r\n");
+		return FALSE;
+	}
+	if(!DyInitializeLibrary()) {
+		DbgPrint("DyInitializeLibrary() returned an error.\r\n");
+		return FALSE;
+	}
+
 	CrtClearScreen();
+
 	return TRUE;
 }
 
-#ifdef __DEBUG__
-#define DbgPrint			CrtPrintf
-#else
-int DbgPrint(const char *fmt, ...) { return -1; }
-#endif
+
 /**********************************************************************************************************
  *                                           EXPORTED FUNTIONS                                            *
  **********************************************************************************************************/

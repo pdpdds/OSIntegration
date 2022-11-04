@@ -19,6 +19,7 @@
 
 /*
  * IN/OUT PHANTOM PREFIX USED BY KERNEL API's PARAMETER FIELD
+ * - these prefixes are useful(sometimes) when you want to compile the source with '__cdecl' or '__stdcall'.
  */
 #define IN
 #define OUT
@@ -74,12 +75,10 @@ typedef DOUBLE				*PDOUBLE;
 /*
  * BOOL DEFINITIONS
  */
-typedef INT					BOOL;
-typedef BOOL near			*PBOOL;
-typedef BOOL far			*LPBOOL;
-
-#define TRUE				1
-#define FALSE				0
+typedef enum {
+	FALSE = 0,
+	TRUE = 1,
+} BOOL, *PBOOL, *LPBOOL;
 
 
 /*

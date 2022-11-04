@@ -45,6 +45,7 @@ static BOOL  Hshp_CMD_dir(BYTE *pParameters);
 static BOOL  Hshp_CMD_type(BYTE *pParameters);
 
 static BOOL  Hshp_CMD_toggle(BYTE *pParameters);
+static BOOL  Hshp_CMD_view(BYTE *pParameters);
 
 /*
  * GLOBAL VARIABLES
@@ -61,6 +62,7 @@ static INTERNEL_COMMAND m_InternalCmds[] = {
 	"TYPE",		Hshp_CMD_type,
 
 	"TOGGLE",	Hshp_CMD_toggle,
+	"VIEW",		Hshp_CMD_view,
 
 	NULL, NULL,
 };
@@ -248,6 +250,39 @@ static BOOL Hshp_CMD_toggle(BYTE *pParameters)
 	return TRUE;
 }
 
+static BOOL  Hshp_CMD_view(BYTE *pParameters)
+{
+	HANDLE hBitmap;
+	KBD_KEY_DATA key_data;
+	BITMAP_INFO bmp_info;
+
+	if(pParameters == NULL || strlen(pParameters) == 0) {
+		CrtPrintText("ERROR: No selected files. \r\n");
+		return FALSE;
+	}
+
+	hBitmap = DyLoadBitmap(pParameters);
+	if(hBitmap == NULL) {
+		CrtPrintText("Bitmap Loading Error!\r\n");
+		return FALSE;
+	}
+
+	DyGetBitmapInfo(hBitmap, &bmp_info);
+
+	DySetVideoMode(GRAPHIC_MODE, DyGetPaletteHandle(hBitmap));
+	DyBitBlt(hBitmap, 0, 0, 0, 0, bmp_info.width, bmp_info.height, NULL);
+
+	while(KbdGetKey(&key_data)) ; /* flush */
+	while(!KbdGetKey(&key_data)) ;
+
+	/* close */
+	DyCloseBitmapHandle(hBitmap);
+	DySetVideoMode(TEXT_MODE, NULL);
+	CrtClearScreen();
+
+	return TRUE;
+}
+
 
 /**********************************************************************************************************
  *                                        MS-DOS COMPATIBLE COMMANDS                                      *
@@ -268,7 +303,8 @@ static BOOL Hshp_CMD_help(BYTE *pParameters)
 		"dir     : Display all files in the current directory. \r\n"
 		"type    : Print a text file onto the screen. \r\n"
 		"\r\n"
-		"toggle  : Show/hide the soft task-switching watchdog clock \r\n"
+		"toggle  : Show/hide the soft task-switching watchdog clock. \r\n"
+		"view    : View a bitmap file (*.bmp). \r\n"
 		"\r\n"
 		"Even if you find any bugs or critical errors, DO NOT SEND & TELL ME. \r\n"
 		"I have no duties to fix them. :( \r\n"

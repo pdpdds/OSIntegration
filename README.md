@@ -12,7 +12,7 @@ BSD 라이선스를 준수한다.
 Development Tool
 -------------------
 
-Visual Studio 2017  
+Visual Studio 2012  
 QEMU  
 WinImage  
 
@@ -23,6 +23,5 @@ Simple OS
 PatOS  
 MINT64  
 ChobitsOS  
-Bellona2  
 Haribote  
 ACE OS  
